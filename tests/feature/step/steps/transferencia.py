@@ -2,13 +2,15 @@ from behave import *
 
 from src.clases.clasesBancarias import Cliente, CuentaDeAhorros
 
-use_step_matcher("re")
+use_step_matcher("parse")
 
 
-@step("que Miguel tiene una cuenta de ahorros con \$100\.00 dólares de saldo")
-def step_impl(context):
+@step("que Miguel tiene una cuenta de ahorros con \${saldo_origen_inicial:f} dólares de saldo")
+#@step("que Miguel tiene una cuenta de ahorros con \$(?P<saldo_origen_inicial>.+) dólares de saldo")
+def step_impl(context, saldo_origen_inicial):
     """
     :type context: behave.runner.Context
+    :type saldo_origen_inicial: float
     """
     # Aquí realizamos el análisis.
     # Aquí creamos la petición de métodos que debe tener el sistema (pregunta a mirar video)
@@ -25,7 +27,6 @@ def step_impl(context):
 
     context.clienteDestino = Cliente("Gabriel", CuentaDeAhorros(10))
     assert context.clienteDestino.listar_saldo_cuenta() == 10
-
 
 
 @step("Miguel transfiere un monto de \$50\.00 dólares a Gabriel")
@@ -63,6 +64,7 @@ def step_impl(context):
     # assert context.cliente.listar_saldos_de_cuentas()
     assert (context.clienteOrigen.listar_saldo_cuenta() == 10)
 
+
 # tendríamos que hacer muchos casos de estos, por lo que no es eficiente
 @step('que Miguel tiene una cuenta de ahorros con \$"10\.00" dólares de saldo')
 def step_impl(context):
@@ -70,3 +72,5 @@ def step_impl(context):
     :type context: behave.runner.Context
     """
     raise NotImplementedError(u'STEP: Dado que Miguel tiene una cuenta de ahorros con $"10.00" dólares de saldo')
+
+
