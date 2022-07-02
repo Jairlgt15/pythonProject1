@@ -1,0 +1,19 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+ class CuentaAhorros{
+  - saldo: Double
+  + transferir_cuenta(montoATransferir: Double, cuentaDestino: CuentaAhorros)
+  +obtener_saldo()
+ }
+ class Cliente{
+ -nombre: String
+ +listar_saldo_cuenta()
+ }
+
+ Cliente -->"*" CuentaAhorros: + cuentas
+CuentaAhorros --|> Cuenta: + abarca
+
+
+
+@enduml
