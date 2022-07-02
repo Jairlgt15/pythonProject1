@@ -10,3 +10,6 @@
     Cuando Miguel transfiere un monto de $50.00 dólares a Gabriel
     Entonces Miguel tendrá $50.00 dólares de saldo
     Y Gabriel tendrá $60.00 dólares de saldo
+
+
+

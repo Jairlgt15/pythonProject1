@@ -52,3 +52,21 @@ def step_impl(context):
     :type context: behave.runner.Context
     """
     assert context.clienteDestino.listar_saldo_cuenta() == 60
+
+
+@step("que Miguel tiene una cuenta de ahorros con \$10\.00 dólares de saldo")
+def step_impl(context):
+    """
+    :type context: behave.runner.Context
+    """
+    context.clienteOrigen = Cliente("Miguel", CuentaDeAhorros(10))
+    # assert context.cliente.listar_saldos_de_cuentas()
+    assert (context.clienteOrigen.listar_saldo_cuenta() == 10)
+
+# tendríamos que hacer muchos casos de estos, por lo que no es eficiente
+@step('que Miguel tiene una cuenta de ahorros con \$"10\.00" dólares de saldo')
+def step_impl(context):
+    """
+    :type context: behave.runner.Context
+    """
+    raise NotImplementedError(u'STEP: Dado que Miguel tiene una cuenta de ahorros con $"10.00" dólares de saldo')
