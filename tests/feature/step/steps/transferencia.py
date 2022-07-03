@@ -5,8 +5,7 @@ from src.clases.clasesBancarias import Cliente, CuentaDeAhorros
 use_step_matcher("parse")
 
 
-@step("que Miguel tiene una cuenta de ahorros con \${saldo_origen_inicial:f} dólares de saldo")
-#@step("que Miguel tiene una cuenta de ahorros con \$(?P<saldo_origen_inicial>.+) dólares de saldo")
+@step("que Miguel tiene una cuenta de ahorros con {saldo_origen_inicial:f} dólares de saldo")
 def step_impl(context, saldo_origen_inicial):
     """
     :type context: behave.runner.Context
@@ -14,63 +13,44 @@ def step_impl(context, saldo_origen_inicial):
     """
     # Aquí realizamos el análisis.
     # Aquí creamos la petición de métodos que debe tener el sistema (pregunta a mirar video)
-    context.clienteOrigen = Cliente("Miguel", CuentaDeAhorros(100))
+    context.clienteOrigen = Cliente("Miguel", CuentaDeAhorros(saldo_origen_inicial))
     # assert context.cliente.listar_saldos_de_cuentas()
-    assert (context.clienteOrigen.listar_saldo_cuenta() == 100)
+    assert (context.clienteOrigen.listar_saldo_cuenta() == saldo_origen_inicial)
 
 
-@step("que Gabriel tiene otra cuenta de ahorros con \$10\.00 dólares de saldo")
-def step_impl(context):
+@step("que Gabriel tiene otra cuenta de ahorros con {saldo_destino_inicial:f} dólares de saldo")
+def step_impl(context, saldo_destino_inicial):
     """
     :type context: behave.runner.Context
+    :type saldo_destino_inicial: float
     """
 
-    context.clienteDestino = Cliente("Gabriel", CuentaDeAhorros(10))
-    assert context.clienteDestino.listar_saldo_cuenta() == 10
+    context.clienteDestino = Cliente("Gabriel", CuentaDeAhorros(saldo_destino_inicial))
+    assert context.clienteDestino.listar_saldo_cuenta() == saldo_destino_inicial
 
 
-@step("Miguel transfiere un monto de \$50\.00 dólares a Gabriel")
-def step_impl(context):
-    """
-    :type context: behave.runner.Context
-    """
-
-    context.clienteOrigen.cuenta.transferir_cuenta(50, context.clienteDestino)
-
-
-@step("Miguel tendrá \$50\.00 dólares de saldo")
-def step_impl(context):
+@step("Miguel transfiere un monto de {monto:f} dólares a Gabriel")
+def step_impl(context, monto):
     """
     :type context: behave.runner.Context
+    :type monto: float
     """
-
-    assert context.clienteOrigen.listar_saldo_cuenta() == 50
-
-
-@step("Gabriel tendrá \$60\.00 dólares de saldo")
-def step_impl(context):
-    """
-    :type context: behave.runner.Context
-    """
-    assert context.clienteDestino.listar_saldo_cuenta() == 60
+    context.clienteOrigen.cuenta.transferir_cuenta(monto, context.clienteDestino)
 
 
-@step("que Miguel tiene una cuenta de ahorros con \$10\.00 dólares de saldo")
-def step_impl(context):
+@step("Miguel tendrá {saldo_origen_final:f} dólares de saldo")
+def step_impl(context, saldo_origen_final):
     """
     :type context: behave.runner.Context
+    :type saldo_origen_final: float
     """
-    context.clienteOrigen = Cliente("Miguel", CuentaDeAhorros(10))
-    # assert context.cliente.listar_saldos_de_cuentas()
-    assert (context.clienteOrigen.listar_saldo_cuenta() == 10)
+    assert context.clienteOrigen.listar_saldo_cuenta() == saldo_origen_final
 
 
-# tendríamos que hacer muchos casos de estos, por lo que no es eficiente
-@step('que Miguel tiene una cuenta de ahorros con \$"10\.00" dólares de saldo')
-def step_impl(context):
+@step("Gabriel tendrá {saldo_destino_final:f} dólares de saldo")
+def step_impl(context, saldo_destino_final):
     """
     :type context: behave.runner.Context
+    :type saldo_destino_final: float
     """
-    raise NotImplementedError(u'STEP: Dado que Miguel tiene una cuenta de ahorros con $"10.00" dólares de saldo')
-
-
+    assert context.clienteDestino.listar_saldo_cuenta() == saldo_destino_final
