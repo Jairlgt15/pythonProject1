@@ -1,6 +1,9 @@
 from behave import *
+import logging as logger
+
 
 from src.clases.clasesBancarias import Cliente, CuentaDeAhorros
+
 
 use_step_matcher("parse")
 
@@ -10,6 +13,7 @@ def step_impl(context, saldo_origen_inicial):
     """
     :type context: behave.runner.Context
     :type saldo_origen_inicial: float
+    ### mejor ponerlo como parametro
     """
     # Aquí realizamos el análisis.
     # Aquí creamos la petición de métodos que debe tener el sistema (pregunta a mirar video)

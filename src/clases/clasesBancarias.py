@@ -16,8 +16,17 @@ class CuentaDeAhorros:
         return self.saldo
 
     def transferir_cuenta(self, monto, cliente):
-        if monto < self.saldo:
-            self.saldo -= monto
-            cliente.cuenta.saldo += monto
+        if self.tiene_fondos_suficientes(monto):
+            self.debitar(monto)
+            self.acreditar(cliente, monto)
         else:
-            print("No existe fondos suficientes")
+            print("No tiene saldo suficiente")
+
+    def tiene_fondos_suficientes(self, monto):
+        return monto <= self.saldo
+
+    def acreditar(self, cliente, monto):
+        cliente.cuenta.saldo += monto
+
+    def debitar(self, monto):
+        self.saldo -= monto

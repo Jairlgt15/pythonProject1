@@ -14,6 +14,7 @@
       | saldo_origen_inicial| saldo_destino_inicial | monto|saldo_origen_final | saldo_destino_final|
       | 100.00 | 10.00 | 50.00 | 50.00 | 60.00 |
       | 10.00 | 10.00 | 50.00 | 10.00 | 10.00 |
+      |100.00 |10.00  |50.00  |49.00  |10.00  |
 
 
 
